@@ -5,13 +5,20 @@ using UnityEngine;
 public class DisplayDistributionHistogram : MonoBehaviour
 {
     public HistogramBar HistogramBarPrefab;
+    
 
-    public void Start()
+    public void SetDistribution(IDistribution distribution)
     {
-        var d6           = Uniform.Distribution(1, 6);
-        var distribution = d6.Repeat(2).Add(3);
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
 
-        var maxWeight = distribution.Support().Select(v => distribution.Weight(v)).Max();
+        var maxWeight = distribution.Support().Select(distribution.Weight).Max();
+
+        if (maxWeight == 0)
+            return;
+
         foreach (var i in distribution.Support())
         {
             var    bar    = Instantiate(HistogramBarPrefab, transform);
