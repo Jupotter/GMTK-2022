@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class HistogramBar : MonoBehaviour
 {
-    public Slider   slider;
-    public TMP_Text text;
+    public  Slider   slider;
+    public  TMP_Text text;
 
     public void Awake()
     {
@@ -21,9 +21,10 @@ public class HistogramBar : MonoBehaviour
         text.text    = "0";
     }
 
-    public void SetValue(int number, double weight)
+    public void SetValue(int number, double weight, bool showText = true)
     {
         slider.value = (float)weight;
         text.text    = number.ToString();
+        text.gameObject.SetActive(showText);
     }
 }
