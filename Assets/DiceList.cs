@@ -9,7 +9,7 @@ using Single = Assets.DiceCalculation.Single;
 public class DiceList : MonoBehaviour
 {
     public DisplayDistributionHistogram Display;
-    public List<DiceDescription>       Dices;
+    public List<DiceDescription>        Dices;
 
     public void AddPrefab(DiceDescription dice)
     {
@@ -19,8 +19,10 @@ public class DiceList : MonoBehaviour
 
     public void Add(DiceDescription dice)
     {
+        bool first = Dices.Count == 0;
+
         Dices.Add(dice);
-        dice.SetParent(this);
+        dice.SetParent(this, first);
         UpdateHistogram();
     }
 
@@ -34,8 +36,54 @@ public class DiceList : MonoBehaviour
     {
         if (!Dices.Contains(dice))
             throw new InvalidOperationException("Dice description not found in the list");
+
+        bool first = dice.IsFirst;
         Dices.Remove(dice);
         Destroy(dice.gameObject);
+
+        if (first && Dices.Count > 0)
+            Dices[0].IsFirst = true;
+        UpdateHistogram();
+    }
+
+    public void MoveLeft(DiceDescription dice)
+    {
+        var index = Dices.IndexOf(dice);
+        if (index == -1)
+            throw new InvalidOperationException("Dice description not found in the list");
+
+        if (index == 0)
+            return;
+
+        var newIndex = index - 1;
+        MoveDice(dice, index, newIndex);
+    }
+
+    public void MoveRight(DiceDescription dice)
+    {
+        var index = Dices.IndexOf(dice);
+        if (index == -1)
+            throw new InvalidOperationException("Dice description not found in the list");
+
+        if (index == Dices.Count - 1)
+            return;
+
+        var newIndex = index + 1;
+        MoveDice(dice, index, newIndex);
+    }
+
+    private void MoveDice(DiceDescription dice, int index, int newIndex)
+    {
+        Dices.RemoveAt(index);
+        Dices.Insert(newIndex, dice);
+
+        dice.transform.SetSiblingIndex(newIndex);
+        if (newIndex == 0 || index == 0)
+        {
+            Dices[0].IsFirst = true;
+            Dices[1].IsFirst = false;
+        }
+
         UpdateHistogram();
     }
 

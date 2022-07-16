@@ -14,12 +14,13 @@ public class DisplayDistributionHistogram : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        var maxWeight = distribution.Support().Select(distribution.Weight).Max();
+        var values = distribution.Support().OrderBy(v => v).ToList();
+        var maxWeight  = values.Select(distribution.Weight).Max();
 
         if (maxWeight == 0)
             return;
 
-        foreach (var i in distribution.Support())
+        foreach (var i in values)
         {
             var    bar    = Instantiate(HistogramBarPrefab, transform);
             double weight = distribution.Weight(i) * (1.0 / maxWeight);

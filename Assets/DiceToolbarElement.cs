@@ -7,6 +7,8 @@ public class DiceToolbarElement : MonoBehaviour
     [SerializeReference]
     public DiceDescription DicePrefab;
 
+    public int Value = 6;
+
     private DiceList list;
 
     public void Start()
@@ -16,6 +18,11 @@ public class DiceToolbarElement : MonoBehaviour
 
     public void AddPressed()
     {
-        list.AddPrefab(DicePrefab);
+        var dice = Instantiate(DicePrefab, list.transform);
+        if (dice is StandardDiceDescription std)
+        {
+            std.Value = Value;
+        }
+        list.Add(dice);
     }
 }

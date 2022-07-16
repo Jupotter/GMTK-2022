@@ -17,6 +17,11 @@ namespace Assets.DiceCalculation
             return Added.Distribution(left, right);
         }
 
+        public static IDistribution Substract(this IDistribution left, IDistribution right)
+        {
+            return Substracted.Distribution(left, right);
+        }
+
         public static IDistribution Add(this IDistribution left, int right)
         {
             return AddedInt.Distribution(left, right);

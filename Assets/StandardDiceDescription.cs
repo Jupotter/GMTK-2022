@@ -1,3 +1,4 @@
+using System;
 using System.Transactions;
 using Assets.DiceCalculation;
 using JetBrains.Annotations;
@@ -13,8 +14,15 @@ public class StandardDiceDescription : DiceDescription
     
     public override IDistribution Apply(IDistribution source)
     {
-        var dice = Uniform.Distribution(1, Value);
-        return source.Add(dice.Repeat(Count));
+        var dice = Uniform.Distribution(1, Value).Repeat(Count);
+
+        return Operation switch
+               {
+                   DiceOperation.Add      => source.Add(dice),
+                   DiceOperation.Subtract => source.Substract(dice),
+                   DiceOperation.Multiply => source.Multiply(dice),
+                   _                      => throw new ArgumentOutOfRangeException()
+               };
     }
 
     public override void Updated()
