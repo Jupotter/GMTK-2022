@@ -6,7 +6,6 @@ public class DisplayDistributionHistogram : MonoBehaviour
 {
     public HistogramBar HistogramBarPrefab;
     
-
     public void SetDistribution(IDistribution distribution)
     {
         foreach (Transform child in transform)

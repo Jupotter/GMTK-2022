@@ -37,5 +37,10 @@ namespace Assets.DiceCalculation
         {
             return Repeated.Distribution(source, count);
         }
+
+        public static IDistribution Explode(this IDistribution source)
+        {
+            return Exploded.Distribution(source);
+        }
     }
 }

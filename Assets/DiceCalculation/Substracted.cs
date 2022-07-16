@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Assets.DiceCalculation
 {
-    public sealed class Added : IDistribution
+    public sealed class Substracted : IDistribution
     {
         private readonly IDistribution left;
         private readonly IDistribution right;
@@ -12,11 +11,11 @@ namespace Assets.DiceCalculation
 
         public static IDistribution Distribution(IDistribution left, IDistribution right)
         {
-            return new Added(left, right);
+            return new Substracted(left, right);
         }
 
 
-        private Added(IDistribution left, IDistribution right)
+        private Substracted(IDistribution left, IDistribution right)
         {
             this.left  = left;
             this.right = right;
@@ -25,7 +24,7 @@ namespace Assets.DiceCalculation
             {
                 foreach (var j in right.Support())
                 {
-                    var sum = i + j;
+                    var sum = i - j;
                     if (!weights.ContainsKey(sum))
                         weights[sum] = 0;
 
@@ -41,7 +40,7 @@ namespace Assets.DiceCalculation
 
         public IEnumerable<int> Support()
         {
-            return weights.Keys.OrderBy(x => x);
+            return weights.Keys;
         }
 
         public int Weight(int t)
