@@ -8,8 +8,19 @@ using Single = Assets.DiceCalculation.Single;
 
 public class DiceList : MonoBehaviour
 {
-    public DisplayDistributionHistogram Display;
-    public List<DiceDescription>        Dices;
+    public  List<DiceDescription> Dices;
+    private SceneContext          context;
+
+    public void Start()
+    {
+        this.context = FindObjectOfType<SceneContext>();
+
+        var preset = GetComponentsInChildren<DiceDescription>();
+        foreach (var dice in preset)
+        {
+            Add(dice);
+        }
+    }
 
     public void AddPrefab(DiceDescription dice)
     {
@@ -95,6 +106,6 @@ public class DiceList : MonoBehaviour
 
     public void UpdateHistogram()
     {
-        Display.SetDistribution(GetDistribution());
+        context.UpdateDisplay();
     }
 }

@@ -27,6 +27,12 @@ namespace Assets.DiceCalculation
             return AddedInt.Distribution(left, right);
         }
 
+        public static IDistribution Multiply(this IDistribution left, int right)
+        {
+            return MultipliedInt.Distribution(left, right);
+        }
+
+
 
         public static IDistribution Multiply(this IDistribution left, IDistribution right)
         {

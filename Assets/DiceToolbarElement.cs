@@ -9,15 +9,16 @@ public class DiceToolbarElement : MonoBehaviour
 
     public int Value = 6;
 
-    private DiceList list;
+    private SceneContext context;
 
     public void Start()
     {
-        list = FindObjectOfType<DiceList>();
+        context = FindObjectOfType<SceneContext>();
     }
 
     public void AddPressed()
     {
+        var list = context.SelectedList;
         var dice = Instantiate(DicePrefab, list.transform);
         if (dice is StandardDiceDescription std)
         {

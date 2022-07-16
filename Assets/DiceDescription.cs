@@ -1,5 +1,6 @@
 using System;
-using System.Linq;using Assets.DiceCalculation;
+using System.Linq;
+using Assets.DiceCalculation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +11,11 @@ public abstract class DiceDescription : MonoBehaviour
 
 
     protected DiceList ParentList { get; private set; }
+
     public void SetParent(DiceList list, bool first)
     {
         this.ParentList = list;
-        this.IsFirst = first;
+        this.IsFirst    = first;
     }
 
     public void Start()
@@ -36,12 +38,17 @@ public abstract class DiceDescription : MonoBehaviour
         ParentList.MoveRight(this);
     }
 
-    private bool          isFirst;
+    private bool isFirst;
 
     public bool IsFirst
     {
         get => isFirst;
-        set { isFirst = value; Updated();; }
+        set
+        {
+            isFirst = value;
+            Updated();
+            ;
+        }
     }
 
     public void Remove()

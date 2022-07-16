@@ -1,9 +1,7 @@
 using System;
 using Assets.DiceCalculation;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine.UI;
-using Single = Assets.DiceCalculation.Single;
 
 public class ValueDiceDescription : DiceDescription
 {
@@ -16,8 +14,13 @@ public class ValueDiceDescription : DiceDescription
 
     public override IDistribution Apply(IDistribution source)
     {
-        var dice = Single.Distribution(Operation == DiceOperation.Add ? Value : -Value);
-        return source.Add(dice);
+        return Operation switch
+               {
+                   DiceOperation.Add      => source.Add(Value),
+                   DiceOperation.Subtract => source.Add(-Value),
+                   DiceOperation.Multiply => source.Multiply(Value),
+                   _                      => throw new ArgumentOutOfRangeException()
+               };
     }
 
 
@@ -26,7 +29,8 @@ public class ValueDiceDescription : DiceDescription
         Operation = Operation switch
                     {
                         DiceOperation.Add      => DiceOperation.Subtract,
-                        DiceOperation.Subtract => DiceOperation.Add,
+                        DiceOperation.Subtract => DiceOperation.Multiply,
+                        DiceOperation.Multiply => DiceOperation.Add,
                         _                      => throw new ArgumentOutOfRangeException()
                     };
         Updated();
@@ -43,6 +47,7 @@ public class ValueDiceDescription : DiceDescription
                               {
                                   DiceOperation.Add      => "+",
                                   DiceOperation.Subtract => "-",
+                                  DiceOperation.Multiply => "*",
                                   _                      => throw new ArgumentOutOfRangeException()
                               };
         }

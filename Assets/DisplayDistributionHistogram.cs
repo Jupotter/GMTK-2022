@@ -5,7 +5,12 @@ using UnityEngine;
 public class DisplayDistributionHistogram : MonoBehaviour
 {
     public HistogramBar HistogramBarPrefab;
-    
+
+    public void UpdateFrom(DiceList source)
+    {
+        SetDistribution(source.GetDistribution());
+    }
+
     public void SetDistribution(IDistribution distribution)
     {
         foreach (Transform child in transform)
