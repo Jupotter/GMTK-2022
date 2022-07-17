@@ -2,6 +2,7 @@ using System;
 using Assets.DiceCalculation;
 using TMPro;
 using UnityEngine.UI;
+using Single = Assets.DiceCalculation.Single;
 
 public class ValueDiceDescription : DiceDescription
 {
@@ -14,6 +15,10 @@ public class ValueDiceDescription : DiceDescription
 
     public override IDistribution Apply(IDistribution source)
     {
+        if (IsFirst)
+        {
+            return Single.Distribution(Value);
+        }
         return Operation switch
                {
                    DiceOperation.Add      => source.Add(Value),

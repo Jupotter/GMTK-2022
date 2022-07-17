@@ -1,9 +1,7 @@
 using System;
-using System.Transactions;
 using Assets.DiceCalculation;
 using JetBrains.Annotations;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class StandardDiceDescription : DiceDescription
@@ -18,7 +16,12 @@ public class StandardDiceDescription : DiceDescription
     
     public override IDistribution Apply(IDistribution source)
     {
+        
         var dice = Uniform.Distribution(1, Value).Repeat(Count);
+        if (IsFirst)
+        {
+            return dice;
+        }
 
         return Operation switch
                {
