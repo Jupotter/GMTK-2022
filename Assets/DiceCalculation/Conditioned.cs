@@ -8,7 +8,7 @@ namespace Assets.DiceCalculation
     {
         private readonly IDistribution        source;
         private readonly Condition            condition;
-        private readonly Dictionary<int, int> weights = new();
+        private readonly Dictionary<int, long> weights = new();
 
         public static IDistribution Distribution(IDistribution source, Condition condition)
         {
@@ -67,7 +67,7 @@ namespace Assets.DiceCalculation
             return weights.Keys.OrderBy(x => x);
         }
 
-        public int Weight(int t)
+        public long Weight(int t)
         {
             return weights.ContainsKey(t) ? weights[t] : 0;
         }

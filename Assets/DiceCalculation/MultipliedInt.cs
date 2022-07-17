@@ -30,7 +30,7 @@ namespace Assets.DiceCalculation
             return source.Support().Select(v => v * value);
         }
 
-        public int Weight(int t)
+        public long Weight(int t)
         {
             var src = source.Support().Single(s => s * value == t);
             return source.Weight(src);

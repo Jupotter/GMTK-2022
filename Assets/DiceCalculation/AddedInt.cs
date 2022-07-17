@@ -30,7 +30,7 @@ namespace Assets.DiceCalculation
             return left.Support().Select(v => v + value);
         }
 
-        public int Weight(int t)
+        public long Weight(int t)
         {
             return left.Weight(t - value);
         }

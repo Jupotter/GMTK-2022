@@ -8,6 +8,6 @@ namespace Assets.DiceCalculation
     {
         int              Sample();
         IEnumerable<int> Support();
-        int              Weight(int t);
+        long             Weight(int t);
     }
 }

@@ -30,7 +30,7 @@ namespace Assets.DiceCalculation
 
         public int Sample() => (int)(SimpleRandom.NextDouble() * (1 + Max - Min) + Min);
 
-        public int Weight(int i) => (Min <= i && i <= Max) ? 1 : 0;
+        public long Weight(int i) => (Min <= i && i <= Max) ? 1 : 0;
 
         public int TotalWeight => 1 + Max - Min;
     }

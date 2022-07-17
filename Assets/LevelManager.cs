@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
 
     public GameObject LevelCompleteScreenPanel;
     public GameObject CompleteGamePanel;
+    public GameObject BackToMenuPanel;
 
 
     [ShowNonSerializedField] private int _currentLevel;
@@ -35,6 +36,7 @@ public class LevelManager : MonoBehaviour
     [UsedImplicitly]
     public void LoadNextLevel()
     {
+        BackToMenuPanel.SetActive(true);
         LevelCompleteScreenPanel.SetActive(false);
 
         var level = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
@@ -53,6 +55,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        BackToMenuPanel.SetActive(false);
         LevelCompleteScreenPanel.SetActive(false);
         CompleteGamePanel.SetActive(false);
 
@@ -68,6 +71,7 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
+        BackToMenuPanel.SetActive(false);
         SceneManager.LoadScene(MainMenu.ScenePath, LoadSceneMode.Additive);
     }
     
@@ -88,7 +92,7 @@ public class LevelManager : MonoBehaviour
         var loadOperation = SceneManager.LoadSceneAsync(level.ScenePath, LoadSceneMode.Additive);
 
         loadOperation.allowSceneActivation = true;
-        
+
     }
 
     public void GoalReached()

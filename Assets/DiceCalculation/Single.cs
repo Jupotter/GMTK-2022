@@ -27,7 +27,7 @@ namespace Assets.DiceCalculation
             yield return value;
         }
 
-        public int Weight(int t)
+        public long Weight(int t)
         {
             return t == value ? 1 : 0;
         }

@@ -7,7 +7,7 @@ namespace Assets.DiceCalculation
     {
         private readonly IDistribution source;
 
-        private readonly Dictionary<int, int> weights;
+        private readonly Dictionary<int, long> weights;
         private readonly int                  max;
 
         public static IDistribution Distribution(IDistribution source)
@@ -20,7 +20,7 @@ namespace Assets.DiceCalculation
         {
             this.source = source;
             this.max    = source.Support().Max();
-            weights     = new Dictionary<int, int>();
+            weights     = new Dictionary<int, long>();
             var totalWeights = source.Support().Select(source.Weight).Sum();
 
             for (int d = 0; d < 3; d++)
@@ -65,7 +65,7 @@ namespace Assets.DiceCalculation
             return weights.Keys.OrderBy(x => x);
         }
 
-        public int Weight(int t)
+        public long Weight(int t)
         {
             return weights.ContainsKey(t) ? weights[t] : 0;
         }

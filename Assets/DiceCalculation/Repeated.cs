@@ -7,7 +7,7 @@ namespace Assets.DiceCalculation
         private readonly IDistribution source;
         private readonly int           count;
 
-        private readonly Dictionary<int, int> _weights;
+        private readonly Dictionary<int, long> _weights;
 
         public static IDistribution Distribution(IDistribution source, int count)
         {
@@ -20,8 +20,8 @@ namespace Assets.DiceCalculation
         {
             this.source = source;
             this.count  = count;
-            var weights    = new Dictionary<int, int> { { 0, 0 } };
-            var newWeights = new Dictionary<int, int>();
+            var weights    = new Dictionary<int, long> { { 0, 0 } };
+            var newWeights = new Dictionary<int, long>();
             for (int c = 0; c < count; c++)
             {
                 foreach (var i in source.Support())
@@ -58,7 +58,7 @@ namespace Assets.DiceCalculation
             return _weights.Keys;
         }
 
-        public int Weight(int t)
+        public long Weight(int t)
         {
             return _weights.ContainsKey(t) ? _weights[t] : 0;
         }

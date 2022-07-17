@@ -7,7 +7,7 @@ namespace Assets.DiceCalculation
         private readonly IDistribution left;
         private readonly IDistribution right;
 
-        private readonly Dictionary<int, int> weights;
+        private readonly Dictionary<int, long> weights;
 
         public static IDistribution Distribution(IDistribution left, IDistribution right)
         {
@@ -19,7 +19,7 @@ namespace Assets.DiceCalculation
         {
             this.left  = left;
             this.right = right;
-            weights    = new Dictionary<int, int>();
+            weights    = new Dictionary<int, long>();
             foreach (var i in left.Support())
             {
                 foreach (var j in right.Support())
@@ -43,7 +43,7 @@ namespace Assets.DiceCalculation
             return weights.Keys;
         }
 
-        public int Weight(int t)
+        public long Weight(int t)
         {
             return weights.ContainsKey(t) ? weights[t] : 0;
         }

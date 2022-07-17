@@ -126,10 +126,7 @@ public class DisplayDistribution : MonoBehaviour
         var currentFirst = values[0];
         var targetFirst  = targetValues[0];
 
-        var offset = currentFirst - targetFirst;
-
-        var posX = offset > 0 ? delta * offset : 0f;
-        posX = 0;
+        float posX = 0;
 
         CurrentDiceLine.positionCount = values.Count;
         var previousValue = minValue;
@@ -141,8 +138,7 @@ public class DisplayDistribution : MonoBehaviour
             CurrentDiceLine.SetPosition(i, origin + new Vector3(posX, weight));
             previousValue = value;
         }
-
-        posX = offset < 0 ? delta * -offset : 0f;
+        
         posX = 0;
 
         TargetDiceLine.positionCount = targetValues.Count;
