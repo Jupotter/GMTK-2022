@@ -99,7 +99,7 @@ public class DisplayDistribution : MonoBehaviour
             labels.Add(maxValue);
 
             labels = labels.OrderBy(x => x).ToList();
-            
+
             foreach (var label in labels)
             {
                 var labelObject = Instantiate(LabelPrefab, LabelTarget.transform);
@@ -117,25 +117,31 @@ public class DisplayDistribution : MonoBehaviour
         var offset = currentFirst - targetFirst;
 
         var posX = offset > 0 ? delta * offset : 0f;
+        posX = 0;
+
         CurrentDiceLine.positionCount = values.Count;
+        var previousValue = minValue;
         for (var i = 0; i < values.Count; i++)
         {
-            var value  = values[i];
+            var value = values[i];
+            posX += delta * (value - previousValue);
             var weight = distribution.Weight(value) * (1.0f / maxCurrentWeight) * transform.localScale.y;
             CurrentDiceLine.SetPosition(i, origin + new Vector3(posX, weight));
-
-            posX += delta;
+            previousValue = value;
         }
 
-        posX                         = offset < 0 ? delta * -offset : 0f;
+        posX = offset < 0 ? delta * -offset : 0f;
+        posX = 0;
+
         TargetDiceLine.positionCount = targetValues.Count;
+        previousValue                = minValue;
         for (var i = 0; i < targetValues.Count; i++)
         {
-            var value  = targetValues[i];
+            var value = targetValues[i];
+            posX += delta * (value - previousValue);
             var weight = targetDistribution.Weight(value) * (1.0f / maxTargetWeight) * transform.localScale.y;
             TargetDiceLine.SetPosition(i, origin + new Vector3(posX, weight));
-
-            posX += delta;
+            previousValue = value;
         }
     }
 
@@ -146,7 +152,7 @@ public class DisplayDistribution : MonoBehaviour
 
         List<int> labels = new List<int>();
 
-        var midpoint        = (max - min) / 2 + min;
+        var midpoint = (max - min) / 2 + min;
         labels.Add(midpoint);
         var left  = GetLabels(min,      midpoint, currentCount + 1);
         var right = GetLabels(midpoint, max,      currentCount + 1);

@@ -39,7 +39,7 @@ public class StandardDiceDescription : DiceDescription
         Operation = Operation switch
                     {
                         DiceOperation.Add      => DiceOperation.Subtract,
-                        DiceOperation.Subtract => DiceOperation.Add,
+                        DiceOperation.Subtract => DiceOperation.Multiply,
                         DiceOperation.Multiply => DiceOperation.Add,
                         _                      => throw new ArgumentOutOfRangeException()
                     };
