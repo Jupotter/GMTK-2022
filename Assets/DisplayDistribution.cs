@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using Assets.DiceCalculation;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,11 @@ public class DisplayDistribution : MonoBehaviour
     public GameObject LabelPrefab;
     public GameObject LabelTarget;
     public int        MaxLabels = 10;
+
+    public int PaddingTop    = 100;
+    public int PaddingBottom = 100;
+    public int PaddingLeft   = 100;
+    public int PaddingRight  = 100;
 
     public LineRenderer CurrentDiceLine;
     public LineRenderer TargetDiceLine;
@@ -36,13 +42,19 @@ public class DisplayDistribution : MonoBehaviour
         var screenHeight = mainCamera.scaledPixelHeight;
         var screenWidth  = mainCamera.scaledPixelWidth;
 
-        var viewPortBottom = 350;
+        var viewPortBottom = 250;
         var viewPortLeft   = 300;
 
         var viewportBottomLeft = new Vector3(viewPortLeft, viewPortBottom);
+        var viewPortTopRight   = new Vector3(screenWidth,  screenHeight);
 
         var bottomLeft = mainCamera.ScreenToWorldPoint(viewportBottomLeft);
-        var topRight   = mainCamera.ScreenToWorldPoint(new Vector3(screenWidth, screenHeight));
+        var topRight   = mainCamera.ScreenToWorldPoint(viewPortTopRight);
+
+        bottomLeft.x += PaddingLeft;
+        bottomLeft.y += PaddingBottom;
+        topRight.x   += PaddingRight;
+        topRight.y   += PaddingTop;
 
         var center = (bottomLeft + topRight) / 2;
         center.z = 0;
