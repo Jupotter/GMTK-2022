@@ -18,10 +18,6 @@ public class LevelManager : MonoBehaviour
     public GameObject LevelCompleteScreenPanel;
     public GameObject CompleteGamePanel;
 
-    public GameObject LevelTimeDisplay;
-    
-
-    public bool AllowPause { get; set; }
 
     [ShowNonSerializedField] private int _currentLevel;
 
@@ -57,21 +53,15 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-#if UNITY_EDITOR
-        _singleSceneMode = true;
-#endif
+        LevelCompleteScreenPanel.SetActive(false);
+        CompleteGamePanel.SetActive(false);
 
-        LoadCurrentLevel();
-        //CompleteGamePanel.SetActive(false);
-        //LevelCompleteScreenPanel.SetActive(false);
-
-        //LoadMainMenu();
+        LoadMainMenu();
     }
 
     public void LoadMainMenu()
     {
         _currentLevel = 0;
-        LevelTimeDisplay.SetActive(false);
         if (SceneManager.sceneCount > 1)
         {
             SceneManager.LoadScene("Level Manager", LoadSceneMode.Single);
@@ -94,7 +84,6 @@ public class LevelManager : MonoBehaviour
 
     private void LoadCurrentLevel()
     {
-        AllowPause = true;
         var level = LevelsInOrder[_currentLevel];
         var loadOperation = SceneManager.LoadSceneAsync(level.ScenePath, LoadSceneMode.Additive);
 
@@ -102,10 +91,8 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    private void GoalOnOnGoalReached(object sender, EventArgs e)
+    public void GoalReached()
     {
-        AllowPause = false;
-        Time.timeScale = 0;
         LevelCompleteScreenPanel.SetActive(true);
     }
 
@@ -136,7 +123,6 @@ public class LevelManager : MonoBehaviour
 
     private void LoadEndScreen()
     {
-        LevelTimeDisplay.SetActive(false);
         CompleteGamePanel.SetActive(true);
     }
 }

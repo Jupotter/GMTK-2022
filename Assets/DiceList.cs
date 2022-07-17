@@ -10,7 +10,7 @@ public class DiceList : MonoBehaviour
     public  List<DiceDescription> Dices;
     private SceneContext          context;
 
-    public void Start()
+    public void Awake()
     {
         this.context = FindObjectOfType<SceneContext>();
 

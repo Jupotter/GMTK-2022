@@ -10,14 +10,19 @@ public class SceneContext : MonoBehaviour
 
     public DiceList DefaultList;
 
-    public IDistribution TargetDistribution = Uniform.Distribution(1, 6).Repeat(3).Add(Uniform.Distribution(1, 20));
+    private IDistribution targetDistribution;
 
+    public DiceList TargetList;
+
+    private LevelManager levelManager;
 
     public void Start()
     {
-        SelectedList = DefaultList;
+        levelManager       = FindObjectOfType<LevelManager>();
+        targetDistribution = TargetList.GetDistribution();
+        SelectedList       = DefaultList;
 
-        Display.SetDistribution(DefaultList.GetDistribution(), TargetDistribution);
+        Display.SetDistribution(DefaultList.GetDistribution(), targetDistribution);
     }
 
     public void SelectDiceList(DiceList list)
@@ -32,14 +37,17 @@ public class SceneContext : MonoBehaviour
 
     public void UpdateDisplay()
     {
-        Display.SetDistribution(DefaultList.GetDistribution(), TargetDistribution);
+        var distribution = DefaultList.GetDistribution();
+        if (distribution == null || targetDistribution == null)
+            return;
+        Display.SetDistribution(DefaultList.GetDistribution(), targetDistribution);
         CheckVictory();
     }
 
     public void CheckVictory()
     {
         var tested        = DefaultList.GetDistribution();
-        var targetSupport = TargetDistribution.Support().ToList();
+        var targetSupport = targetDistribution.Support().ToList();
 
         var testedSupport = tested.Support().ToList();
 
@@ -47,7 +55,7 @@ public class SceneContext : MonoBehaviour
         {
             var ok = testedSupport.Contains(value);
             testedSupport.Remove(value);
-            ok &= tested.Weight(value) == TargetDistribution.Weight(value);
+            ok &= tested.Weight(value) == targetDistribution.Weight(value);
 
             if (!ok)
             {
@@ -62,6 +70,6 @@ public class SceneContext : MonoBehaviour
             return;
         }
 
-        Debug.Log("OK");
+        levelManager.GoalReached();
     }
 }

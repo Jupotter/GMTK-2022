@@ -16,10 +16,10 @@ public class DisplayDistribution : MonoBehaviour
     public GameObject LabelTarget;
     public int        MaxLabels = 10;
 
-    public int PaddingTop    = 100;
-    public int PaddingBottom = 100;
-    public int PaddingLeft   = 100;
-    public int PaddingRight  = 100;
+    public int PaddingTop    = 0;
+    public int PaddingBottom = 0;
+    public int PaddingLeft   = 0;
+    public int PaddingRight  = 0;
 
     public LineRenderer CurrentDiceLine;
     public LineRenderer TargetDiceLine;
@@ -51,10 +51,10 @@ public class DisplayDistribution : MonoBehaviour
         var bottomLeft = mainCamera.ScreenToWorldPoint(viewportBottomLeft);
         var topRight   = mainCamera.ScreenToWorldPoint(viewPortTopRight);
 
-        bottomLeft.x += PaddingLeft;
-        bottomLeft.y += PaddingBottom;
-        topRight.x   += PaddingRight;
-        topRight.y   += PaddingTop;
+        bottomLeft.x += PaddingLeft   / 100f;
+        bottomLeft.y += PaddingBottom / 100f;
+        topRight.x   += PaddingRight  / 100f;
+        topRight.y   += PaddingTop    /100f;
 
         var center = (bottomLeft + topRight) / 2;
         center.z = 0;

@@ -13,6 +13,11 @@ public class ValueDiceDescription : DiceDescription
 
     public int Value;
 
+    public void Awake()
+    {
+        Input.text = Value.ToString();
+    }
+
     public override IDistribution Apply(IDistribution source)
     {
         if (IsFirst)

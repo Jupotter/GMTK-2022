@@ -25,7 +25,7 @@ public abstract class DiceDescription : MonoBehaviour
 
     public virtual void Updated()
     {
-        ParentList.UpdateHistogram();
+        ParentList?.UpdateHistogram();
     }
 
     public void MoveLeft()
