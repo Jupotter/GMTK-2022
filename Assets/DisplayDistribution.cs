@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using Assets.DiceCalculation;
 using TMPro;
 using UnityEngine;
@@ -122,9 +120,6 @@ public class DisplayDistribution : MonoBehaviour
 
         var delta  = transform.localScale.x / (count - 1);
         var origin = new Vector3(-transform.localScale.x / 2, -transform.localScale.y / 2);
-
-        var currentFirst = values[0];
-        var targetFirst  = targetValues[0];
 
         float posX = 0;
 

@@ -1,0 +1,5 @@
+Unity Scene Reference: johannesmp (https://github.com/JohannesMP/unity-scene-reference)
+Naughty Attributes: dbrizov (https://github.com/dbrizov/NaughtyAttributes)
+GUI elements:
+    - Fantasy wooden Gui: https://assetstore.unity.com/packages/2d/gui/fantasy-wooden-gui-free-103811#description
+    - Gui Pro Kit - Fantasy RPG: https://assetstore.unity.com/packages/2d/gui/fantasy-wooden-gui-free-103811#description
